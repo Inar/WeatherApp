@@ -1,0 +1,27 @@
+﻿@model Weather.Models.OneCallApi
+@{
+    ViewBag.Title = "Forecast";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Forecast</h2>
+        <p>8-day weather forecast for Almaty</p>
+    </div>
+</div>
+<div class="row">
+    <table class="table table-bordered text-center">
+        <tr>
+            @foreach (var item in Model.daily)
+            {
+                <td>
+                    <b>@DateTimeOffset.FromUnixTimeSeconds(item.dt).DayOfWeek, @DateTimeOffset.FromUnixTimeSeconds(item.dt).Date.ToString().Substring(0, 5)</b>
+                    <img src="@string.Format("http://openweathermap.org/img/wn/{0}@2x.png", item.weather[0].icon)" />
+                    <p>@item.weather[0].description</p>
+                    <p>Day: @item.temp.day °C</p>
+                    <p>Night: @item.temp.night °C</p>
+                </td>
+            }
+        </tr>
+    </table>
+</div>
